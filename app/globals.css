@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-scroll-up: scroll-up 30s linear infinite;
+  
+  @keyframes scroll-up {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+}

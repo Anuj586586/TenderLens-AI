@@ -1,0 +1,184 @@
+{
+    "uri": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search?limit=1&publishedTo=2026-08-15T19:32:19+01:00",
+    "version": "1.1",
+    "extensions": [
+        "https://standard.open-contracting.org/profiles/eu/master/en/extension.json",
+        "https://raw.githubusercontent.com/portaledcahn/ocds_tenderDatePublished_extension/master/extension.json",
+        "https://raw.githubusercontent.com/open-contracting-extensions/ocds_budget_breakdown_extension/master/extension.json",
+        "https://raw.githubusercontent.com/Crown-Commercial-Service/ocds_awards_datePublished_extension/main/extension.json",
+        "https://raw.githubusercontent.com/Crown-Commercial-Service/ocds_partyDetails_vcse_extension/main/extension.json",
+        "https://raw.githubusercontent.com/Crown-Commercial-Service/ocds_tender_suitability_extension/main/extension.json",
+        "https://raw.githubusercontent.com/open-contracting-extensions/ocds_pagination_extension/master/extension.json"
+    ],
+    "publishedDate": "2026-08-15T06:35:36+01:00",
+    "publisher": {
+        "name": "Cabinet Office",
+        "scheme": "GB-GOR",
+        "uid": "D2",
+        "uri": "https://www.gov.uk/government/organisations/cabinet-office"
+    },
+    "license": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+    "publicationPolicy": "https://www.gov.uk/government/publications/open-contracting",
+    "releases": [
+        {
+            "ocid": "ocds-b5fd17-07fc30f9-fa68-4388-849e-7dbe6106504c",
+            "id": "dd5f2ac5-52aa-423b-af95-400657d3ed6b-910947",
+            "language": "en",
+            "date": "2026-08-15T06:35:36+01:00",
+            "tag": [
+                "award"
+            ],
+            "initiationType": "tender",
+            "tender": {
+                "id": "DVNCC001-DN820253-77672599",
+                "title": "DCC: Lot 1 - 6th July 2026 PCV",
+                "description": "This is a mini-competition from Lot 1 of the Devon County Council Passenger Transport Dynamic Purchasing System (CP1185 15).\r\n\r\nFor the supply and provision of one or more home to school transport contracts throughout Devon for eligible scholars. The projected duration of each contract is five years however the Devon County Council Passenger Transport Standard Conditions of Contract still apply, and therefore either the contractor or DCC can give notice as per the terms and conditions to terminate the contract at any time.\r\n\r\nIVY004\r\nKSB001",
+                "status": "complete",
+                "classification": {
+                    "scheme": "CPV",
+                    "id": "60000000",
+                    "description": "Transport services (excl. Waste transport)"
+                },
+                "additionalClassifications": [
+                    {
+                        "scheme": "CPV",
+                        "id": "85143000",
+                        "description": "Ambulance services"
+                    }
+                ],
+                "items": [
+                    {
+                        "id": "1",
+                        "deliveryAddresses": [
+                            {
+                                "region": "South West",
+                                "countryName": "United Kingdom"
+                            }
+                        ]
+                    }
+                ],
+                "value": {
+                    "amount": 617500,
+                    "currency": "GBP"
+                },
+                "procurementMethod": "selective",
+                "procurementMethodDetails": "Restricted procedure",
+                "tenderPeriod": {
+                    "endDate": "2026-07-06T12:00:00+01:00"
+                },
+                "contractPeriod": {
+                    "startDate": "2026-09-04T00:00:00+01:00",
+                    "endDate": "2031-09-06T23:59:59+01:00"
+                },
+                "suitability": {
+                    "sme": true,
+                    "vcse": false
+                },
+                "mainProcurementCategory": "services"
+            },
+            "parties": [
+                {
+                    "id": "GB-CFS-49287",
+                    "name": "Devon County Council",
+                    "identifier": {
+                        "legalName": "Devon County Council"
+                    },
+                    "address": {
+                        "streetAddress": "County Hall, Topsham Road",
+                        "locality": "Exeter",
+                        "postalCode": "EX2 4QD",
+                        "countryName": "England"
+                    },
+                    "contactPoint": {
+                        "email": "transport.tenders@devon.gov.uk"
+                    },
+                    "details": {
+                        "url": "https://www.devon.gov.uk"
+                    },
+                    "roles": [
+                        "buyer"
+                    ]
+                },
+                {
+                    "id": "GB-CFS-337570",
+                    "name": "Tamar Coaches Ltd",
+                    "identifier": {
+                        "legalName": "Tamar Coaches Ltd"
+                    },
+                    "address": {
+                        "streetAddress": "Plymouth"
+                    },
+                    "details": {
+                        "scale": "sme",
+                        "vcse": false
+                    },
+                    "roles": [
+                        "supplier"
+                    ]
+                },
+                {
+                    "id": "GB-CFS-337571",
+                    "name": "Tally Ho! Coaches Ltd",
+                    "identifier": {
+                        "legalName": "Tally Ho! Coaches Ltd"
+                    },
+                    "address": {
+                        "streetAddress": "Kingsbridge, TQ7 1ES"
+                    },
+                    "details": {
+                        "scale": "sme",
+                        "vcse": false
+                    },
+                    "roles": [
+                        "supplier"
+                    ]
+                }
+            ],
+            "buyer": {
+                "id": "GB-CFS-49287",
+                "name": "Devon County Council"
+            },
+            "awards": [
+                {
+                    "id": "ocds-b5fd17-07fc30f9-fa68-4388-849e-7dbe6106504c-1",
+                    "status": "active",
+                    "date": "2026-07-28T00:00:00+01:00",
+                    "datePublished": "2026-08-15T06:35:36+01:00",
+                    "value": {
+                        "amount": 645563,
+                        "currency": "GBP"
+                    },
+                    "suppliers": [
+                        {
+                            "id": "GB-CFS-337570",
+                            "name": "Tamar Coaches Ltd"
+                        },
+                        {
+                            "id": "GB-CFS-337571",
+                            "name": "Tally Ho! Coaches Ltd"
+                        }
+                    ],
+                    "contractPeriod": {
+                        "startDate": "2026-09-04T00:00:00+01:00",
+                        "endDate": "2031-09-06T23:59:59+01:00"
+                    },
+                    "description": "Tamar Coaches Ltd: Awarded route IVY004\r\n\r\nTally Ho! Coaches Ltd: Awarded route KSB001",
+                    "documents": [
+                        {
+                            "id": "1",
+                            "documentType": "awardNotice",
+                            "description": "Awarded contract notice on Contracts Finder",
+                            "url": "https://www.contractsfinder.service.gov.uk/Notice/dd5f2ac5-52aa-423b-af95-400657d3ed6b",
+                            "datePublished": "2026-08-15T06:35:36+01:00",
+                            "format": "text/html",
+                            "language": "en"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": {
+        "next": "https://www.contractsfinder.service.gov.uk/Published/Notices/OCDS/Search?limit=1&publishedTo=2026-08-15T19:32:19+01:00&cursor=cHVibGlzaGVkVG89MjAyNi0wOC0xNVQxOTozMjoxOSswMTowMHxsaW1pdD0xfG5leHRDdXJzb3I9NzgwNDMz"
+    }
+}

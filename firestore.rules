@@ -1,0 +1,79 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common Helpers
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    function isValidTender(data, userId) {
+      return data.keys().hasAll(['title', 'buyer', 'userId', 'createdAt', 'updatedAt'])
+        && data.title is string && data.title.size() <= 200
+        && data.buyer is string && data.buyer.size() <= 100
+        && data.userId == userId
+        && (!('value' in data) || (data.value is string && data.value.size() <= 50))
+        && (!('deadline' in data) || (data.deadline is string && data.deadline.size() <= 50))
+        && (!('match' in data) || data.match is number)
+        && (!('status' in data) || (data.status is string && data.status in ["Ready to Bid", "Analyzing", "Risk Detected", "Reviewing", "Done"]))
+        && (!('analysis' in data) || data.analysis is map)
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidAnalysis(data, userId, tenderId) {
+      return data.keys().hasAll(['tenderId', 'userId', 'createdAt', 'updatedAt'])
+        && data.tenderId == tenderId
+        && data.userId == userId
+        && (!('documentUrl' in data) || (data.documentUrl is string && data.documentUrl.size() <= 1000))
+        && (!('documentName' in data) || (data.documentName is string && data.documentName.size() <= 255))
+        && (!('risks' in data) || (data.risks is list && data.risks.size() <= 100))
+        && (!('compliance' in data) || (data.compliance is list && data.compliance.size() <= 100))
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+      match /tenders/{tenderId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+          && isValidId(tenderId)
+          && isValidTender(incoming(), userId);
+        allow update: if isOwner(userId)
+          && isValidId(tenderId)
+          && isValidTender(incoming(), userId)
+          && incoming().userId == existing().userId
+          && incoming().createdAt == existing().createdAt
+          && incoming().updatedAt == request.time
+          && incoming().diff(existing()).affectedKeys().hasOnly(['title', 'buyer', 'value', 'deadline', 'match', 'status', 'updatedAt', 'analysis']);
+        allow delete: if isOwner(userId) && isValidId(tenderId);
+
+        match /analysis/{analysisId} {
+          allow read: if isOwner(userId);
+          allow create: if isOwner(userId)
+            && isValidId(tenderId)
+            && isValidId(analysisId)
+            && isValidAnalysis(incoming(), userId, tenderId)
+            && incoming().createdAt == request.time
+            && incoming().updatedAt == request.time;
+          allow update: if isOwner(userId)
+            && isValidId(tenderId)
+            && isValidId(analysisId)
+            && isValidAnalysis(incoming(), userId, tenderId)
+            && incoming().userId == existing().userId
+            && incoming().tenderId == existing().tenderId
+            && incoming().createdAt == existing().createdAt
+            && incoming().updatedAt == request.time
+            && incoming().diff(existing()).affectedKeys().hasOnly(['documentUrl', 'documentName', 'risks', 'compliance', 'updatedAt']);
+          allow delete: if isOwner(userId) && isValidId(analysisId);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "TenderLens AI",
+  "description": "AI-powered tender analysis platform to extract insights, check eligibility, and manage bids efficiently.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

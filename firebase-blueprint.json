@@ -1,0 +1,47 @@
+{
+  "entities": {
+    "Tender": {
+      "title": "Tender",
+      "description": "Represents a tracked tender/RFP.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 200 },
+        "buyer": { "type": "string", "maxLength": 100 },
+        "value": { "type": "string", "maxLength": 50 },
+        "deadline": { "type": "string", "maxLength": 50 },
+        "match": { "type": "number" },
+        "status": { "type": "string", "enum": ["Ready to Bid", "Analyzing", "Risk Detected", "Reviewing"] },
+        "userId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "buyer", "userId", "createdAt", "updatedAt"]
+    },
+    "TenderAnalysis": {
+      "title": "Tender Analysis",
+      "description": "AI analysis for a tender.",
+      "type": "object",
+      "properties": {
+        "tenderId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "documentUrl": { "type": "string", "maxLength": 1000 },
+        "documentName": { "type": "string", "maxLength": 255 },
+        "risks": { "type": "array" },
+        "compliance": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["tenderId", "userId", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/tenders/{tenderId}": {
+      "schema": { "$ref": "#/entities/Tender" },
+      "description": "Tenders belonging to a specific user."
+    },
+    "/users/{userId}/tenders/{tenderId}/analysis/{analysisId}": {
+      "schema": { "$ref": "#/entities/TenderAnalysis" },
+      "description": "Analysis data for a specific tender."
+    }
+  }
+}
