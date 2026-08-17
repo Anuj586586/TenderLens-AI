@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ais-pre-gk7d2dhqnsl6d2tucwoeew-609486323980.asia-east1.run.app';
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://tenderlens-sigma.vercel.app';
   
   return [
     {

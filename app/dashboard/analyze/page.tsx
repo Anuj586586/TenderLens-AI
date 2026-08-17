@@ -148,7 +148,7 @@ function AnalyzeContent() {
           <div className="w-20 h-20 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6">
             <Lock className="w-10 h-10" />
           </div>
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">You've reached your free limit</h2>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">You&apos;ve reached your free limit</h2>
           <p className="text-slate-600 text-lg mb-8 max-w-lg mx-auto">
             You have successfully analyzed 3 tenders using our free AI engine. Upgrade to Pro for unlimited AI risk analysis and compliance breakdowns.
           </p>

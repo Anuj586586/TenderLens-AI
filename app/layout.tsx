@@ -16,9 +16,6 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en">
-      <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4202092943475144" crossOrigin="anonymous"></script>
-      </head>
       <body className="antialiased bg-slate-50 text-slate-900 min-h-screen flex flex-col" suppressHydrationWarning>
         <Providers>
           {children}
