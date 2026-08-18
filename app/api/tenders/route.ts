@@ -32,6 +32,7 @@ export async function GET(req: NextRequest) {
           description: `Sector: ${p.sector1?.Name || 'N/A'}. Managed by: ${p.teamleadname || 'N/A'}`,
           value: `USD ${Number(p.totalamt || 0).toLocaleString()}`,
           deadline: p.closingdate ? new Date(p.closingdate).toLocaleDateString() : 'N/A',
+          publishedDate: p.boardapprovaldate ? new Date(p.boardapprovaldate) : new Date(0),
           url: p.url || `https://projects.worldbank.org/en/projects-operations/project-detail/${p.id}`
         };
       });
@@ -51,6 +52,7 @@ export async function GET(req: NextRequest) {
           description: `Sector: ${p.sector1?.Name || 'N/A'}. Managed by: ${p.teamleadname || 'N/A'}`,
           value: `USD ${Number(p.totalamt || 0).toLocaleString()}`,
           deadline: p.closingdate ? new Date(p.closingdate).toLocaleDateString() : 'N/A',
+          publishedDate: p.boardapprovaldate ? new Date(p.boardapprovaldate) : new Date(0),
           url: p.url || `https://projects.worldbank.org/en/projects-operations/project-detail/${p.id}`
         };
       });
@@ -60,7 +62,9 @@ export async function GET(req: NextRequest) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           filters: { award_type_codes: ["A", "B", "C", "D"] },
-          fields: ["Award ID", "Recipient Name", "Description", "Award Amount", "End Date"],
+          fields: ["Award ID", "Recipient Name", "Description", "Award Amount", "End Date", "Start Date"],
+          sort: "Start Date",
+          order: "desc",
           limit: 100
         }),
         next: { revalidate: 3600 }
@@ -76,6 +80,7 @@ export async function GET(req: NextRequest) {
           description: `Federal contract awarded to ${p["Recipient Name"]}.`,
           value: p["Award Amount"] ? `USD ${Number(p["Award Amount"]).toLocaleString()}` : 'N/A',
           deadline: p["End Date"] ? new Date(p["End Date"]).toLocaleDateString() : 'N/A',
+          publishedDate: p["Start Date"] ? new Date(p["Start Date"]) : new Date(0),
           url: 'https://www.usaspending.gov/search'
         };
       });
@@ -104,12 +109,16 @@ export async function GET(req: NextRequest) {
             description: t.description || 'No description available',
             value: t.value ? `${t.value.currency || 'GBP'} ${t.value.amount?.toLocaleString() || '0'}` : 'N/A',
             deadline: t.tenderPeriod?.endDate ? new Date(t.tenderPeriod.endDate).toLocaleDateString() : 'N/A',
+            publishedDate: release.date ? new Date(release.date) : new Date(0),
             url: noticeId ? `https://www.contractsfinder.service.gov.uk/Notice/${noticeId}` : '#'
           });
         }
       });
       allTenders = Array.from(uniqueTenders.values());
     }
+
+    // Sort by publishedDate descending
+    allTenders.sort((a, b) => b.publishedDate.getTime() - a.publishedDate.getTime());
 
     // Apply AI Matchmaking logic to REAL data
     const filtered = category === 'all' 

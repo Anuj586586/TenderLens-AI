@@ -122,7 +122,13 @@ export async function GET() {
     }
 
     // Map real Google News items to our blog schema
-    const blogs = data.items.slice(0, 12).map((item: any, index: number) => {
+    const blogs = data.items.map((item: any) => ({
+      ...item,
+      parsedDate: new Date(item.pubDate)
+    }))
+    .sort((a: any, b: any) => b.parsedDate.getTime() - a.parsedDate.getTime())
+    .slice(0, 12)
+    .map((item: any, index: number) => {
       let excerpt = item.description || '';
       // Strip HTML tags returned by Google News
       excerpt = excerpt.replace(/(<([^>]+)>)/gi, "");
@@ -136,7 +142,7 @@ export async function GET() {
         id: index,
         title: item.title,
         excerpt: excerpt || 'Read the full article for more detailed insights and updates on this recent public procurement news.',
-        date: new Date(item.pubDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        date: item.parsedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         category: 'Market News',
         readTime: `${Math.floor(Math.random() * 4) + 3} min read`,
         url: item.link,
@@ -148,6 +154,7 @@ export async function GET() {
   } catch (error) {
     console.error('Error fetching live blogs, using fallback:', error);
     // Graceful fallback to guarantee UI always works
-    return NextResponse.json({ blogs: MOCK_FALLBACK });
+    const sortedFallback = [...MOCK_FALLBACK].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return NextResponse.json({ blogs: sortedFallback });
   }
 }
